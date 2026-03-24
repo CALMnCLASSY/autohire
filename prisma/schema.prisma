@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum BookingStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model Car {
+  id            Int       @id @default(autoincrement())
+  make          String
+  model         String
+  year          Int
+  pricePerDay   Int
+  transmission  String
+  fuelType      String
+  seats         Int
+  imageUrls     String[]
+  isAvailable   Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  bookings      Booking[]
+
+  @@index([isAvailable])
+  @@index([pricePerDay])
+}
+
+model Booking {
+  id              Int           @id @default(autoincrement())
+  carId           Int
+  car             Car           @relation(fields: [carId], references: [id], onDelete: Cascade)
+  userEmail       String
+  startDate       DateTime
+  endDate         DateTime
+  totalAmount     Int
+  status          BookingStatus @default(PENDING)
+  intaSendRef     String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([carId])
+  @@index([userEmail])
+  @@index([status])
+  @@index([startDate, endDate])
+}

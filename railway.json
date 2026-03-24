@@ -1,0 +1,50 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "nixpacks"
+  },
+  "deploy": {
+    "startCommand": "npm run start",
+    "restartPolicyType": "on_failure",
+    "restartPolicyMaxRetries": 5
+  },
+  "environmentVariables": {
+    "NODE_ENV": "production",
+    "DATABASE_URL": {
+      "description": "PostgreSQL connection string from Supabase",
+      "value": ""
+    },
+    "SUPABASE_URL": {
+      "description": "Supabase project URL",
+      "value": ""
+    },
+    "SUPABASE_ANON_KEY": {
+      "description": "Supabase anonymous key",
+      "value": ""
+    },
+    "SUPABASE_SERVICE_ROLE_KEY": {
+      "description": "Supabase service role key",
+      "value": ""
+    },
+    "NEXT_PUBLIC_SUPABASE_URL": {
+      "description": "Public Supabase URL for client-side",
+      "value": ""
+    },
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": {
+      "description": "Public Supabase anon key for client-side",
+      "value": ""
+    },
+    "INTASEND_PUBLISHABLE_KEY": {
+      "description": "IntaSend publishable key",
+      "value": ""
+    },
+    "INTASEND_SECRET_KEY": {
+      "description": "IntaSend secret key",
+      "value": ""
+    },
+    "INTASEND_WEBHOOK_SECRET": {
+      "description": "IntaSend webhook secret for payment verification",
+      "value": ""
+    }
+  }
+}
