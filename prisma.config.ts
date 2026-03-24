@@ -1,11 +1,2 @@
-import "dotenv/config";
-
-export default {
-  schema: "prisma/schema.prisma",
-  migrations: {
-    path: "prisma/migrations",
-  },
-  datasource: {
-    url: process.env.DATABASE_URL,
-  },
-};
+// Prisma v5 uses .env files directly, no config file needed
+// This file can be removed or left empty
