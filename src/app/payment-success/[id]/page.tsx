@@ -1,27 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, use } from 'react';
 import Link from 'next/link';
 
-export default function PaymentSuccessPage({ params }: { params: { id: string } }) {
+export default function PaymentSuccessPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
   const [booking, setBooking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const response = await fetch(`/api/bookings?id=${params.id}`);
+        const response = await fetch(`/api/bookings?id=${resolvedParams.id}`);
         const data = await response.json();
         setBooking(data);
       } catch (err) {
-        console.error('Failed to load booking:', err);
+        console.error('Failed to fetch booking:', err);
       } finally {
         setLoading(false);
       }
     };
 
     fetchBooking();
-  }, [params.id]);
+  }, [resolvedParams.id]);
 
   if (loading) {
     return (

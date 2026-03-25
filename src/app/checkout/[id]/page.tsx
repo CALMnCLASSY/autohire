@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 
-export default function CheckoutPage({ params }: { params: { id: string } }) {
+export default function CheckoutPage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const bookingId = resolvedParams.id;
   const [booking, setBooking] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState('mpesa');
@@ -11,8 +13,6 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  const bookingId = params.id;
 
   useEffect(() => {
     const fetchBooking = async () => {
